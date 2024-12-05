@@ -1,9 +1,18 @@
+import BikeCard from "@/components/BikeCard";
 import CustomFilter from "@/components/CustomFilter";
 import Hero from "@/components/hero";
 import SearchBar from "@/components/SearchBar";
+import { fetchBikes } from "@/utils";
 import React from "react";
 
-const page = () => {
+const page = async () => {
+  const allBikes = await fetchBikes();
+
+  console.log(allBikes);
+
+  const isDataEmpty =
+    !Array.isArray(allBikes) || allBikes.length < 1 || !allBikes;
+
   return (
     <main className="overflow-hidden">
       <Hero />
@@ -19,6 +28,21 @@ const page = () => {
             <CustomFilter title="year" />
           </div>
         </div>
+
+        {!isDataEmpty ? (
+          <section>
+            <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14">
+              {allBikes?.map((bike) => (
+                <BikeCard bike={bike} />
+              ))}
+            </div>
+          </section>
+        ) : (
+          <div className="mt-16 flex justify-center items-center flex-col gap-2">
+            <h2 className="text-black text-xl">opps no result</h2>
+            <p>{allBikes?.message}</p>
+          </div>
+        )}
       </div>
     </main>
   );
