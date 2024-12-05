@@ -22,7 +22,8 @@ const Hero = () => {
       </div>
       <div className="xl:flex-[1.5] flex justify-end items-end w-full xl:h-screen ">
         <div className="relative xl:w-full w-[90%] xl:h-full h-[590px] z-0">
-          <Image alt="" src="" />
+          <Image alt="hero" src="/hero.png" fill className="object-contain" />
+          <div className="absolute xl:-right-1/2 xl:-top-24 -right-1/4 bg-hero-bg bg-repeat-round -z-10 w-full xl:h-screen h-[590px] overflow-hidden"></div>
         </div>
       </div>
     </div>
