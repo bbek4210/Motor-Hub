@@ -1,9 +1,12 @@
-import React from 'react'
+import Hero from "@/components/hero";
+import React from "react";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <main className="overflow-hidden">
+      <Hero />
+    </main>
+  );
+};
 
-export default page
+export default page;
