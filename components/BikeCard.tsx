@@ -1,8 +1,8 @@
 "use client";
 import { BikeProps } from "@/types";
-import { calculateBikeRent, generateBikeImageUrl } from "@/utils";
+import { calculateBikeRent, fetchBikeImage } from "@/utils";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "./CustomButton";
 import BikeDetails from "./BikeDetails";
 
@@ -12,6 +12,20 @@ interface BikeCardProps {
 
 const BikeCard = ({ bike }: BikeCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [imageSrc, setImageSrc] = useState("");
+
+  useEffect(() => {
+    const loadImage = async () => {
+      if (!bike.make || !bike.model || !bike.year) return;
+      try {
+        const imageUrl = await fetchBikeImage(bike);
+        setImageSrc(imageUrl);
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
+    loadImage();
+  }, [bike]);
 
   const carRent = calculateBikeRent(bike);
   console.log(carRent);
@@ -29,13 +43,15 @@ const BikeCard = ({ bike }: BikeCardProps) => {
         <span className="self-end text-[14px] font-medium">/day</span>
       </p>
       <div className="relative w-full h-40 object-contain my-3">
-        <Image
-          src={generateBikeImageUrl(bike)}
-          fill
-          alt="bike"
-          priority
-          className="object-contain"
-        />
+        {imageSrc ? (
+          <Image
+            src={imageSrc}
+            fill
+            alt="bike"
+            priority
+            className="object-contain"
+          />
+        ) : null}
       </div>
       <div className="relative flex w-full mt-2">
         <div className="flex group-hover:invisible w-full justify-between text-gray">

@@ -20,6 +20,7 @@ export interface SearchManufacturerProps {
 }
 
 export interface BikeProps {
+  articleId: number;
   make: string;
   model: string;
   year: number;

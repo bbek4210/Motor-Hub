@@ -35,23 +35,29 @@ export const calculateBikeRent = (bike: BikeProps) => {
   return rentalRatePerDay.toFixed(2); // Fixed to 2 decimal places for accuracy
 };
 
-export const generateBikeImageUrl = (bike: BikeProps, angle?: string) => {
-  const url = new URL(
-    "https://motorcycle-specs-database.p.rapidapi.com/article/804882/image/link"
-  );
+export async function fetchBikeImage({ make, year, model }: BikeProps) {
+  const url = `http://api-motorcycle.makingdatameaningful.com/files/${make.toLowerCase()}/${year}/${model.toLowerCase()}/imageName`;
 
-  const { make, year, model } = bike;
-  url.searchParams.append(
-    "customer",
-    "377cb8b7e2msh4ae017ef8efa250p1faee1jsnd20bd07da375"
-  );
-  url.searchParams.append("make", make);
-  url.searchParams.append("modelFamily", model.split("")[0]);
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": "377cb8b7e2msh4ae017ef8efa250p1faee1jsnd20bd07da375",
+      "x-rapidapi-host": "motorcycle-specs-database.p.rapidapi.com",
+    },
+  };
 
-  url.searchParams.append("zoomType", "fullscreen");
+  try {
+    const response = await fetch(url, options);
 
-  url.searchParams.append("modelYear", `${year}`);
-  url.searchParams.append("angle", `${angle}`);
+    if (!response.ok) {
+      console.error(`Error fetching image for articleId: ${make}`);
+      return null;
+    }
 
-  return `${url}`;
-};
+    const imageData = await response.json();
+    return imageData.link;
+  } catch (error) {
+    console.error("Error fetching bike image:", error);
+    return null;
+  }
+}
