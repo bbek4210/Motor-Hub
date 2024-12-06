@@ -22,8 +22,7 @@ const CustomButton = ({
       <span className={`flex-1 ${textStyles}`}>{title}</span>
       {rightIcon && (
         <div
-          className="rela
-        tive w-6 h-6"
+          className="relative w-6 h-6"
         >
           <Image
             src={rightIcon}

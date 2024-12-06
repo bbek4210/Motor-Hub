@@ -18,7 +18,7 @@ const page = async () => {
       <Hero />
       <div className="mt-12 max-width sm:px-16 px-6 py-4" id="discover">
         <div className="flex flex-col items-start justify-start gap-y-2.5 text-black-100">
-          <h1 className="text-4xl font-extrabold ">Car Store</h1>
+          <h1 className="text-4xl font-extrabold ">Bike Store</h1>
           <p>Explore the bike you like.</p>
         </div>
         <div className="mt-12 w-full flex-between items-center flex-wrap gap-5  ">
