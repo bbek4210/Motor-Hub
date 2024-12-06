@@ -1,6 +1,6 @@
 "use client";
 import { BikeProps } from "@/types";
-import { calculateBikeRent } from "@/utils";
+import { calculateBikeRent, generateBikeImageUrl } from "@/utils";
 import Image from "next/image";
 import React, { useState } from "react";
 import CustomButton from "./CustomButton";
@@ -30,7 +30,7 @@ const BikeCard = ({ bike }: BikeCardProps) => {
       </p>
       <div className="relative w-full h-40 object-contain my-3">
         <Image
-          src="/hero.png"
+          src={generateBikeImageUrl(bike)}
           fill
           alt="bike"
           priority

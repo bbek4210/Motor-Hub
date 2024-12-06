@@ -17,14 +17,13 @@ export async function fetchBikes() {
   return result;
 }
 
-
 export const calculateBikeRent = (bike: BikeProps) => {
   const basePricePerDay = 30; // Base rental price per day in dollars
   const displacementFactor = 0.05; // Additional rate per ccm of engine displacement
   const ageFactor = 0.03; // Additional rate per year of bike age
 
   // Parse displacement to get the numeric value only
-  const displacementValue = parseFloat(bike.displacement.split(' ')[0]);
+  const displacementValue = parseFloat(bike.displacement.split(" ")[0]);
 
   // Calculate additional rate based on displacement and age
   const displacementRate = displacementValue * displacementFactor;
@@ -34,4 +33,25 @@ export const calculateBikeRent = (bike: BikeProps) => {
   const rentalRatePerDay = basePricePerDay + displacementRate + ageRate;
 
   return rentalRatePerDay.toFixed(2); // Fixed to 2 decimal places for accuracy
+};
+
+export const generateBikeImageUrl = (bike: BikeProps, angle?: string) => {
+  const url = new URL(
+    "https://motorcycle-specs-database.p.rapidapi.com/article/804882/image/link"
+  );
+
+  const { make, year, model } = bike;
+  url.searchParams.append(
+    "customer",
+    "377cb8b7e2msh4ae017ef8efa250p1faee1jsnd20bd07da375"
+  );
+  url.searchParams.append("make", make);
+  url.searchParams.append("modelFamily", model.split("")[0]);
+
+  url.searchParams.append("zoomType", "fullscreen");
+
+  url.searchParams.append("modelYear", `${year}`);
+  url.searchParams.append("angle", `${angle}`);
+
+  return `${url}`;
 };
