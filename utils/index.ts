@@ -59,5 +59,6 @@ export async function fetchBikeImage({ make, year, model }: BikeProps) {
   } catch (error) {
     console.error("Error fetching bike image:", error);
     return null;
+    
   }
 }

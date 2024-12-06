@@ -33,7 +33,7 @@ const page = async () => {
           <section>
             <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14">
               {allBikes?.map((bike) => (
-                <BikeCard bike={bike} />
+                <BikeCard key={bike?.id} bike={bike} />
               ))}
             </div>
           </section>

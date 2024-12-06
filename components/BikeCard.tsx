@@ -22,6 +22,7 @@ const BikeCard = ({ bike }: BikeCardProps) => {
         setImageSrc(imageUrl);
       } catch (error) {
         console.error("Error fetching image:", error);
+        setImageSrc("/hero.png");
       }
     };
     loadImage();
@@ -45,7 +46,8 @@ const BikeCard = ({ bike }: BikeCardProps) => {
       <div className="relative w-full h-40 object-contain my-3">
         {imageSrc ? (
           <Image
-            src={imageSrc}
+            // src={imageSrc}
+            src="/hero.png"
             fill
             alt="bike"
             priority
